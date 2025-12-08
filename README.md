@@ -15,16 +15,17 @@ Trabalho Final - Capítulo 6: Deep Learning com PyTorch aplicado ao CIFAR-100. A
 
 ## 📋 Índice
 
-1. [Sobre o Projeto](#sobre-o-projeto)
-2. [EWMA Meets Gradients](#1-ewma-meets-gradients)
-3. [Otimizador Adam](#2-otimizador-adam)
-4. [Visualização de Gradientes Adaptados](#3-visualização-de-gradientes-adaptados)
-5. [SGD e Suas Variantes](#4-sgd-e-suas-variantes)
-6. [Learning Rate Schedulers](#5-learning-rate-schedulers)
-7. [Resultados Consolidados](#resultados-consolidados)
-8. [Estrutura do Repositório](#estrutura-do-repositório)
-9. [Como Executar](#como-executar)
-10. [Referências](#referências)
+1. [Sobre o Projeto](#-sobre-o-projeto)
+2. [EWMA Meets Gradients](#1️⃣-ewma-meets-gradients)
+3. [Otimizador Adam](#2️⃣-otimizador-adam)
+4. [Visualização de Gradientes Adaptados](#3️⃣-visualização-de-gradientes-adaptados)
+5. [SGD e Suas Variantes](#4️⃣-sgd-e-suas-variantes)
+6. [Learning Rate Schedulers](#5️⃣-learning-rate-schedulers)
+7. [Resultados Consolidados](#-resultados-consolidados)
+8. [Estrutura do Repositório](#-estrutura-do-repositório)
+9. [Como Executar](#-como-executar)
+10. [Referências](#-referências)
+
 
 ---
 
