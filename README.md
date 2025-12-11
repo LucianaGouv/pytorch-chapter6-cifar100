@@ -1,7 +1,7 @@
-# README (Short)
+# README
 
-This repository contains the notebook and scripts for the Chapter 6 assignment adapted to CIFAR-100.
-See `README_project.md` for full reproduction instructions and the recommended repository layout.
+Esse repositório contém o notebook e os scripts para o Capítulo 6 com dataset adaptado para o CIFAR-100.
+Veja `README_project.md` para uma reprodução completa das instruções.
 
 Quick start
 
@@ -9,7 +9,7 @@ Quick start
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
-# Re-run notebook in-place (may take several minutes)
+# Rodar notebook in-place (pode demorar vários minutos)
 .venv/bin/python -m nbconvert --to notebook --execute --inplace Cifar100.ipynb --ExecutePreprocessor.timeout=2400
 
 ```
@@ -22,31 +22,21 @@ Trabalho Final - Capítulo 6: Deep Learning com PyTorch aplicado ao CIFAR-100. A
 
 **Universidade Federal do Rio Grande do Norte (UFRN)**  
 **Disciplina**: Projeto de Sistemas Baseados em Aprendizado de Máquinas  
-**Professor**: Ivanovich  
+**Professor**: Ivanovitch  
 **Aluna**: Luciana Gouveia  
 **Data**: Dezembro de 2025
-
----
-
-## 📋 Índice
-
-1. [Sobre o Projeto](#-sobre-o-projeto)
-2. [EWMA Meets Gradients](#1️⃣-ewma-meets-gradients)
-3. [Otimizador Adam](#2️⃣-otimizador-adam)
-4. [Visualização de Gradientes Adaptados](#3️⃣-visualização-de-gradientes-adaptados)
-5. [SGD e Suas Variantes](#4️⃣-sgd-e-suas-variantes)
-6. [Learning Rate Schedulers](#5️⃣-learning-rate-schedulers)
-7. [Resultados Consolidados](#-resultados-consolidados)
-8. [Estrutura do Repositório](#-estrutura-do-repositório)
-9. [Como Executar](#-como-executar)
-10. [Referências](#-referências)
-
 
 ---
 
 ## 🎯 Sobre o Projeto
 
 Este repositório contém o **Trabalho Final** da disciplina, explorando em profundidade o **Capítulo 6** do livro *Deep Learning with PyTorch Step-by-Step*, aplicado ao dataset **CIFAR-100**.
+
+### Estrutura
+- `notebooks/` — notebook(s) prontos para publicação (executados).
+- `experiments/` — scripts para execução completa dos experimentos.
+- `figures/` — figuras geradas pelo notebook (PNG).
+ - `article/` — rascunho do artigo em Markdown e `index.html` para visualização no repositório.
 
 ### Objetivos
 
@@ -84,11 +74,11 @@ Onde:
 
 Um EWMA com β=0.9 equivale aproximadamente a uma **média móvel simples de 19 períodos**:
 
-| Beta (β) | Períodos Equivalentes | Uso no Adam |
-|----------|----------------------|-------------|
-| 0.9      | 19                   | β₁ (momentum) |
-| 0.99     | 199                  | - |
-| 0.999    | 1999                 | β₂ (escalonamento) |
+| Beta (β) | Períodos Equivalentes | Uso no Adam        |
+|----------|---------------------- |--------------------|
+| 0.9      | 19                    | β₁ (momentum)      |
+| 0.99     | 199                   | -                  |
+| 0.999    | 1999                  | β₂ (escalonamento) |
 
 **Fórmula**: `Períodos ≈ 2 / (1 - β)`
 
@@ -115,10 +105,10 @@ Aplicamos EWMA aos gradientes da camada `conv1.weight` durante 100 mini-batches:
 | Métrica | Gradientes Brutos | EW
 
 MA (β=0.9) | Redução |
-|---------|-------------------|-------------|---------|
-| **Variância** | 0.347 | 0.119 | 66% |
-| **Pico máximo** | 1.823 | 0.654 | 64% |
-| **Estabilidade** | Baixa | Alta | +73% |
+|------------------|-------|-------|------|
+| **Variância**    | 0.347 | 0.119 | 66%  |
+| **Pico máximo**  | 1.823 | 0.654 | 64%  |
+| **Estabilidade** | Baixa | Alta  | +73% |
 
 📊 **[Gráfico 1]**: Comparação SMA vs EWMA  
 📊 **[Gráfico 2]**: EWMA aplicado aos gradientes do CIFAR-100
@@ -226,10 +216,10 @@ Capturamos gradientes da `conv1.weight` durante 100 mini-batches e processamos e
 
 ### Comparação Teórica
 
-| Variante | Fórmula de Update | Vantagem | Desvantagem |
-|----------|-------------------|----------|-------------|
-| **SGD Vanilla** | `θ = θ - η * g` | Simples | Oscila muito |
-| **SGD + Momentum** | `v = β*v + g`<br>`θ = θ - η*v` | Acelera | Overshooting |
+| Variante           | Fórmula de Update                      | Vantagem   | Desvantagem  |
+|--------------------|----------------------------------------|------------|--------------|
+| **SGD Vanilla**    | `θ = θ - η * g`                        | Simples    | Oscila muito |
+| **SGD + Momentum** | `v = β*v + g`<br>`θ = θ - η*v`         | Acelera    | Overshooting |
 | **SGD + Nesterov** | `v = β*v + g`<br>`θ = θ - η*(β*v + g)` | Look-ahead | Complexidade |
 
 ### Experimento Comparativo
@@ -243,12 +233,12 @@ Capturamos gradientes da `conv1.weight` durante 100 mini-batches e processamos e
 
 **Resultados**:
 
-| Otimizador | Época 50 - Acc | Convergência | Estabilidade |
-|------------|----------------|--------------|--------------|
-| SGD Vanilla | 34.22% | Lenta (>40 épocas) | Baixa (±3.2%) |
-| SGD + Momentum | 52.18% | Média (30 épocas) | Média (±1.8%) |
-| SGD + Nesterov | 54.76% | Rápida (25 épocas) | Alta (±0.9%) |
-| **Adam** | **58.73%** | **Muito Rápida (20 épocas)** | **Muito Alta (±0.4%)** |
+| Otimizador     | Época 50 - Acc | Convergência                 | Estabilidade           |
+|----------------|----------------|------------------------------|------------------------|
+| SGD Vanilla    | 34.22%         | Lenta (>40 épocas)           | Baixa (±3.2%)          |
+| SGD + Momentum | 52.18%         | Média (30 épocas)            | Média (±1.8%)          |
+| SGD + Nesterov | 54.76%         | Rápida (25 épocas)           | Alta (±0.9%)           |
+| **Adam**       | **58.73%**     | **Muito Rápida (20 épocas)** | **Muito Alta (±0.4%)** |
 
 📊 **[Gráfico 9]**: Trajetória SGD Vanilla  
 📊 **[Gráfico 10]**: Trajetória SGD + Momentum  
@@ -286,77 +276,3 @@ Varia ciclicamente:
 
 scheduler = CyclicLR(optimizer, base_lr=0.001, max_lr=0.01,
 step_size_up=500, mode='triangular2')
-
-
-### Experimento no CIFAR-100
-
-**Configuração**:
-# README (Curto)
-
-Este repositório contém o notebook e os scripts para o Trabalho Final adaptado ao CIFAR-100.
-Veja `README_project.md` para instruções completas de reprodução e o layout recomendado do repositório.
-
-Início rápido
-
-```bash
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Re-executar o notebook (pode demorar vários minutos):
-
-```bash
-.venv/bin/python -m nbconvert --to notebook --execute --inplace notebooks/Cifar100.ipynb --ExecutePreprocessor.timeout=2400
-```
-
-# pytorch-chapter6-cifar100
-Trabalho Final - Capítulo 6: Deep Learning com PyTorch aplicado ao CIFAR-100.
-
-## 🔥 Visão Geral
-
-Este projeto adapta os experimentos do Capítulo 6 do livro "Deep Learning with PyTorch Step-by-Step" para o dataset CIFAR-100. O objetivo é analisar EWMAs, entender o Otimizador Adam, comparar variantes de SGD, testar schedulers de learning rate e visualizar gradientes e mapas de ativação.
-
-**Autores**: Luciana Gouveia
-
-## Estrutura rápida
-- `notebooks/` — notebook(s) prontos para publicação (executados).
-- `experiments/` — scripts para execução completa dos experimentos.
-- `figures/` — figuras geradas pelo notebook (PNG).
- - `article/` — rascunho do artigo em Markdown e `index.html` para visualização no repositório.
-
-## Objetivos principais
-- Implementar e demonstrar EWMA aplicado a gradientes
-- Analisar e visualizar componentes internos do Adam
-- Capturar e comparar gradientes brutos, suavizados e adaptados
-- Comparar SGD, SGD+Momentum e SGD+Nesterov
-- Testar e comparar diferentes LR schedulers
-
-## Nota sobre execução
-O notebook `Cifar100.ipynb` está configurado por padrão com `num_epochs = 3` para demonstração rápida. Para executar experimentos completos, aumente `num_epochs` nas células de treino antes de re-executar.
-
-## Como reproduzir (resumo)
-1. Ative o ambiente virtual:
-```bash
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-2. Re-execute o notebook para regenerar figuras e incorporar saídas:
-```bash
-.venv/bin/python -m nbconvert --to notebook --execute --inplace notebooks/Cifar100.ipynb --ExecutePreprocessor.timeout=2400
-```
-3. Exportar para HTML (opcional) para publicação:
-```bash
-.venv/bin/python -m nbconvert notebooks/Cifar100.ipynb --to html --output Cifar100_published.html
-```
-
-4. Visualizar o artigo publicado
-
-Depois de gerar o HTML, o arquivo publicado fica em `article/Cifar100_published.html`. Você pode abrir localmente ou servir pela web (ex.: GitHub Pages). Exemplo para servir localmente:
-
-```bash
-python3 -m http.server 8000
-# abra http://localhost:8000/article/Cifar100_published.html
-```
-
-
-
