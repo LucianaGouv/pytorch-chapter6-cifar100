@@ -349,6 +349,15 @@ pip install -r requirements.txt
 .venv/bin/python -m nbconvert notebooks/Cifar100.ipynb --to html --output Cifar100_published.html
 ```
 
+4. Visualizar o artigo publicado
+
+Depois de gerar o HTML, o arquivo publicado fica em `article/Cifar100_published.html`. Você pode abrir localmente ou servir pela web (ex.: GitHub Pages). Exemplo para servir localmente:
+
+```bash
+python3 -m http.server 8000
+# abra http://localhost:8000/article/Cifar100_published.html
+```
+
 Se preferir, posso traduzir ou revisar outros arquivos do repositório.
 ---
 
