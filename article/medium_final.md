@@ -71,6 +71,17 @@
  - Adam vs SGD (demo): `adam_vs_sgd_demo.png` mostra convergência inicial mais rápida do Adam. Em execuções longas com regularização e ajuste fino, SGD+momentum pode competir ou superar dependendo do regime.
  - Gradientes: `gradients_capture_demo.png` — compare vetores brutos, EWMA e m/\\sqrt{v}. Observa-se que a EWMA suprime picos e evidencia tendência; o adaptador do Adam reescala por dimensão.
 
+Abaixo estão as figuras principais (clique/veja os exemplos):
+
+![LR range test](figures/lr_range_test.png)
+*Figura: LR range test — use para escolher a ordem de grandeza do learning rate.*
+
+![Adam vs SGD demo](figures/adam_vs_sgd_demo.png)
+*Figura: Comparação curta Adam vs SGD+momentum (3 épocas).* 
+
+![Gradientes e EWMA](figures/gradients_capture_demo.png)
+*Figura: Gradientes crus vs EWMA vs vetor adaptado (m/sqrt(v)).*
+
  Interpretação prática: usar EWMA (β1≈0.9) para detectar direções consistentes nos gradientes e LR range test para selecionar a ordem de grandeza do passo inicial; combine com scheduler (ex.: StepLR ou ReduceLROnPlateau) conforme validação.
 
  ## 6. LR schedulers — recomendações e exemplos rápidos

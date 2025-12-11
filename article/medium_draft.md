@@ -73,6 +73,15 @@
 
  Interpretação prática: usar EWMA (β1≈0.9) para detectar direções consistentes nos gradientes e LR range test para selecionar a ordem de grandeza do passo inicial; combine com scheduler (ex.: StepLR ou ReduceLROnPlateau) conforme validação.
 
+![LR range test](figures/lr_range_test.png)
+*Figura: LR range test — use para escolher a ordem de grandeza do learning rate.*
+
+![Adam vs SGD demo](figures/adam_vs_sgd_demo.png)
+*Figura: Comparação curta Adam vs SGD+momentum (3 épocas).* 
+
+![Gradientes e EWMA](figures/gradients_capture_demo.png)
+*Figura: Gradientes crus vs EWMA vs vetor adaptado (m/sqrt(v)).*
+
  ## 6. LR schedulers — recomendações e exemplos rápidos
 
  - `StepLR(optimizer, step_size=k, gamma=0.1)` — fácil e robusto para cortes em marcos.
