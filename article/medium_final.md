@@ -82,6 +82,39 @@ Abaixo estão as figuras principais (clique/veja os exemplos):
 ![Gradientes e EWMA](figures/gradients_capture_demo.png)
 *Figura: Gradientes crus vs EWMA vs vetor adaptado (m/sqrt(v)).*
 
+## Feature maps e visualizações de filtros
+
+As visualizações a seguir mostram mapas de ativação retirados de várias camadas da rede (camadas convolucionais iniciais e intermediárias). Elas são úteis para entender quais padrões cada filtro está detectando.
+
+![Feature maps - conv1](figures/feature_maps_conv1.png)
+*Figura: Mapas de ativação da primeira camada convolucional.*
+
+![Feature maps - conv2](figures/feature_maps_conv2.png)
+*Figura: Mapas de ativação da segunda camada convolucional.*
+
+![Feature maps - todas as camadas](figures/feature_maps_all_layers.png)
+*Figura: Coleção de mapas de ativação para várias camadas (visão geral).* 
+
+## Demos de treino e comparação de otimizadores
+
+Mostramos abaixo execuções curtas (3 épocas) para ilustrar diferenças comportamentais entre otimizadores e variantes.
+
+![Treino curto Adam](figures/demo_training_adam_3ep.png)
+*Figura: Curvas de treino usando Adam (3 épocas).* 
+
+![Adam vs SGD (comparativo)](figures/adam_vs_sgd_demo.png)
+*Figura: Comparativo curto Adam vs SGD+momentum.*
+
+![SGD vs Nesterov](figures/sgd_nesterov_demo.png)
+*Figura: Comparativo entre SGD com momentum padrão e Nesterov.*
+
+## Exemplos de schedulers
+
+Exemplos de políticas de learning rate usadas nos experimentos.
+
+![Scheduler examples](figures/scheduler_examples.png)
+*Figura: Exemplos de curvas de learning rate para diferentes schedulers.*
+
  Interpretação prática: usar EWMA (β1≈0.9) para detectar direções consistentes nos gradientes e LR range test para selecionar a ordem de grandeza do passo inicial; combine com scheduler (ex.: StepLR ou ReduceLROnPlateau) conforme validação.
 
  ## 6. LR schedulers — recomendações e exemplos rápidos
