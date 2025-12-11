@@ -1,3 +1,18 @@
+# README (Short)
+
+This repository contains the notebook and scripts for the Chapter 6 assignment adapted to CIFAR-100.
+See `README_project.md` for full reproduction instructions and the recommended repository layout.
+
+Quick start
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+# Re-run notebook in-place (may take several minutes)
+.venv/bin/python -m nbconvert --to notebook --execute --inplace Cifar100.ipynb --ExecutePreprocessor.timeout=2400
+
+```
 # pytorch-chapter6-cifar100
 Trabalho Final - Capítulo 6: Deep Learning com PyTorch aplicado ao CIFAR-100. Análise de EWMA, Adam, SGD, Schedulers e Visualização de Gradientes.
 
@@ -276,61 +291,65 @@ step_size_up=500, mode='triangular2')
 ### Experimento no CIFAR-100
 
 **Configuração**:
-- Otimizador base: SGD (lr=0.1, momentum=0.9, nesterov=True)
-- Épocas: 100
+# README (Curto)
 
-**Resultados Comparativos**:
+Este repositório contém o notebook e os scripts para o Trabalho Final adaptado ao CIFAR-100.
+Veja `README_project.md` para instruções completas de reprodução e o layout recomendado do repositório.
 
-| Scheduler | Accuracy Final | Melhor Época | Tempo/Época |
-|-----------|----------------|--------------|-------------|
-| **Sem Scheduler** | 48.3% | 82 | 45s |
-| **StepLR** | 56.7% | 94 | 45s |
-| **MultiStepLR** | 57.1% | 91 | 45s |
-| **ReduceLROnPlateau** | 57.4% | 88 | 46s |
-| **CyclicLR** | **59.2%** | **87** | 46s |
+Início rápido
 
-📊 **[Gráfico 13]**: Evolução LR - StepLR  
-📊 **[Gráfico 14]**: Evolução LR - CyclicLR  
-📊 **[Gráfico 15]**: Comparação de Schedulers
-
-### LR Range Test
-
-Implementamos o **LR Range Test** para encontrar o learning rate ideal:
-
-``` python
-def lr_range_test(model, data_loader, start_lr=1e-7, end_lr=10, num_iter=100):
-    lrs = []
-    losses = []
-    lr_lambda = lambda x: math.exp(x * math.log(end_lr/start_lr) / num_iter)
-    scheduler = LambdaLR(optimizer, lr_lambda)
-    
-    for i, (inputs, targets) in enumerate(data_loader):
-        if i >= num_iter:
-            break
-        
-        loss = train_step(inputs, targets)
-        losses.append(loss)
-        lrs.append(optimizer.param_groups['lr'])
-        scheduler.step()
-    
-    return lrs, losses
-
-
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-**Resultado**: LR ideal identificado entre **0.01 e 0.1**
+Re-executar o notebook (pode demorar vários minutos):
 
-📊 **[Gráfico 16]**: LR Range Test - CIFAR-100
+```bash
+.venv/bin/python -m nbconvert --to notebook --execute --inplace notebooks/Cifar100.ipynb --ExecutePreprocessor.timeout=2400
+```
 
+# pytorch-chapter6-cifar100
+Trabalho Final - Capítulo 6: Deep Learning com PyTorch aplicado ao CIFAR-100.
+
+## 🔥 Visão Geral
+
+Este projeto adapta os experimentos do Capítulo 6 do livro "Deep Learning with PyTorch Step-by-Step" para o dataset CIFAR-100. O objetivo é analisar EWMAs, entender o Otimizador Adam, comparar variantes de SGD, testar schedulers de learning rate e visualizar gradientes e mapas de ativação.
+
+**Autores**: Luciana Gouveia
+
+## Estrutura rápida
+- `notebooks/` — notebook(s) prontos para publicação (executados).
+- `experiments/` — scripts para execução completa dos experimentos.
+- `figures/` — figuras geradas pelo notebook (PNG).
+ - `article/` — rascunho do artigo em Markdown e `index.html` para visualização no repositório.
+
+## Objetivos principais
+- Implementar e demonstrar EWMA aplicado a gradientes
+- Analisar e visualizar componentes internos do Adam
+- Capturar e comparar gradientes brutos, suavizados e adaptados
+- Comparar SGD, SGD+Momentum e SGD+Nesterov
+- Testar e comparar diferentes LR schedulers
+
+## Nota sobre execução
+O notebook `Cifar100.ipynb` está configurado por padrão com `num_epochs = 3` para demonstração rápida. Para executar experimentos completos, aumente `num_epochs` nas células de treino antes de re-executar.
+
+## Como reproduzir (resumo)
+1. Ative o ambiente virtual:
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+2. Re-execute o notebook para regenerar figuras e incorporar saídas:
+```bash
+.venv/bin/python -m nbconvert --to notebook --execute --inplace notebooks/Cifar100.ipynb --ExecutePreprocessor.timeout=2400
+```
+3. Exportar para HTML (opcional) para publicação:
+```bash
+.venv/bin/python -m nbconvert notebooks/Cifar100.ipynb --to html --output Cifar100_published.html
+```
+
+Se preferir, posso traduzir ou revisar outros arquivos do repositório.
 ---
 
-## 📊 Resultados Consolidados
-
-### Tabela Comparativa Final
-
-| Método | Otimizador | Scheduler | Época 100 | Melhor Accuracy | Tempo Total |
-|--------|------------|-----------|-----------|-----------------|-------------|
-| Baseline | SGD | - | 48.3% | 48.3% | 75 min |
-| Momentum | SGD+Mom | - | 52.1% | 52.1% | 75 min |
-| Nesterov | SGD+Nest | - | 54.8% |
 

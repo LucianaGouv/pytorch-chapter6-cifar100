@@ -1,0 +1,88 @@
+Descrição do Trabalho Final 
+O trabalho final consiste na exploração aprofundada do Capítulo 6 – “Deep Learning 
+with PyTorch”, do livro Deep Learning with PyTorch Step-by-Step. Cada estudante 
+(individualmente ou em dupla) deverá produzir uma nota técnica completa e de alto 
+nível, com publicação obrigatória em uma das duas plataformas: 
+● Medium, ou 
+● Substack  
+Além da publicação, o trabalho deve ser acompanhado de um repositório GitHub 
+organizado, contendo todo o código utilizado e as visualizações geradas. 
+Um ponto central desta versão do trabalho é que todos os exemplos, gráficos, códigos 
+e experimentos devem ser feitos utilizando o MESMO DATASET escolhido na Unidade 
+2 da disciplina. Ou seja, nada de Rock-Paper-Scissors ou outros datasets do livro, o 
+capítulo 6 deve ser reinterpretado e aplicado sobre o dataset de estudo de caso do 
+aluno. Caso seja necessário mudar o DATASET, validar antes com o professor.  
+Conteúdo Técnico Obrigatório da Nota Técnica 
+A nota técnica (Medium ou Substack) deve abordar, com profundidade teórica, 
+aplicações práticas e visualizações, os tópicos abaixo, todos aplicados ao dataset da 
+Unidade 2: 
+1. EWMA Meets Gradients 
+Explique como EWMAs (Exponentially Weighted Moving Averages) atuam para: 
+● suavizar variações bruscas de gradientes, 
+● permitir atualizações mais estáveis, 
+● servir de base para otimizadores adaptativos. 
+A explicação deve conter: 
+● Intuição de janelas equivalentes, 
+● α, β e períodos efetivos, 
+● Comparações com médias móveis simples, 
+● Gráficos reais aplicados ao dataset da Unidade 2. 
+2. Adam 
+Explique e demonstre na prática: 
+● como o Adam combina momentum + escalonamento por gradientes ao 
+quadrado; 
+● o papel de β₁, β₂ e ϵ; 
+● comportamento do Adam no dataset escolhido. 
+Inclua: 
+● curva de perda, 
+● curvas de gradientes, 
+● comparação com SGD. 
+3. Visualizing Adapted Gradients 
+Gerar visualizações obrigatórias mostrando: 
+● gradientes crus, 
+● gradientes suavizados (EWMA), 
+● gradientes adaptados pelo Adam. 
+4. SGD e Suas Variantes 
+Explicar e demonstrar com gráficos: 
+● SGD simples, 
+● SGD com Momentum, 
+● SGD com Nesterov. 
+Mostrar intuitivamente: 
+● a “trajetória” da otimização, 
+● diferenças de estabilidade, 
+● velocidade de convergência. 
+5. Learning Rate Schedulers 
+A nota técnica deve conter: 
+● explicação teórica, 
+● exemplos em código, 
+● visualização da evolução da learning rate, 
+● comparação de desempenho entre diferentes schedulers. 
+Obrigatório incluir pelo menos dois entre: 
+● StepLR 
+● MultiStepLR 
+● ReduceLROnPlateau 
+● CyclicLR 
+● LambdaLR 
+Entregáveis 
+A. Nota Técnica (Medium ou Substack) 
+A publicação deve conter: 
+● explicações teóricas, 
+● Prints de códigos 
+● figuras geradas pelo discente ou grupo 
+● comparativos e análises próprias, 
+● link para o repositório GitHub. 
+B. Repositório GitHub 
+Deve incluir: 
+● código limpo e organizado, 
+● diretórios bem estruturados (e.g. /notebooks, /experiments, /figures), 
+● README completo com instruções de execução, 
+● scripts/notebooks para gerar todas as visualizações utilizadas na nota técnica. 
+É obrigatório que os exemplos sejam executáveis usando o dataset da Unidade 2. 
+Dicas Importantes 
+● Reaproveite a classe do repositório da disciplina. 
+● Compare resultados, discuta diferenças entre teoria e prática. 
+● Destaque limitações, melhorias possíveis e interpretações dos achados. 
+● Quanto mais clara, visual e didática for a nota técnica, melhor. 
+Submissão 
+● Enviar no SIGAA o link da publicação no Medium ou Substack. 
+● Trabalho individual ou em dupla. 
+● Prazo: 15 de dezembro de 2025, às 23h59. 
