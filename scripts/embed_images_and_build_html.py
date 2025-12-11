@@ -94,7 +94,30 @@ except Exception:
 
 html_body = markdown.markdown(text, extensions=['fenced_code','tables','codehilite'])
 
-template = f'''<!doctype html>
+# --- Number figures: replace <img> [+ optional following <p>caption</p>] with <figure><img/><figcaption>Figura N. ...</figcaption></figure>
+def _strip_tags(s):
+    return re.sub(r'<[^>]+>', '', s or '').strip()
+
+fig_counter = [0]
+def _figure_repl(m):
+    img_html = m.group(1)
+    caption_html = m.group(2) or ''
+    caption_text = _strip_tags(caption_html)
+    if not caption_text:
+        # try to extract alt text from img
+        alt_m = re.search(r'alt="([^"]*)"', img_html)
+        caption_text = alt_m.group(1) if alt_m else ''
+    fig_counter[0] += 1
+    if caption_text:
+        figcaption = f'<figcaption class="caption">Figura {fig_counter[0]}. {caption_text}</figcaption>'
+    else:
+        figcaption = f'<figcaption class="caption">Figura {fig_counter[0]}</figcaption>'
+    return f'<figure class="figure">{img_html}{figcaption}</figure>'
+
+img_with_caption_re = re.compile(r'(<img[^>]+>)(\s*(?:<p>.*?</p>))?', re.DOTALL)
+html_body = img_with_caption_re.sub(_figure_repl, html_body)
+
+head = '''<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
@@ -102,41 +125,49 @@ template = f'''<!doctype html>
 <title>Artigo (embedded) — CIFAR-100</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
 <style>
-    body {{ font-family: "Georgia", "Times New Roman", serif; max-width:1000px; margin:2rem auto; padding:0 1.5rem; color:#111; line-height:1.65; font-size:18px }}
-    h1,h2,h3 {{ font-weight:700 }}
-    pre {{ background:#f6f8fa; padding:1rem; overflow:auto }}
-    code {{ background:#f6f8fa; padding:0.15rem 0.3rem; border-radius:4px }}
-    img {{ max-width:100%; height:auto; display:block; margin:0.6rem auto }}
-    p em, .caption {{ display:block; text-align:center; color:#444; font-style:italic; margin-top:0.25rem }}
-    .figure {{ margin:1.2rem 0; text-align:center }}
-    .meta {{ color:#666; font-size:0.95rem }}
-    blockquote {{ color:#555; border-left:4px solid #ddd; padding:0.5rem 1rem }}
+    /* Two-column article layout with figures spanning both columns */
+    main { column-count: 2; column-gap: 2.2rem; max-width:1100px; margin:0 auto }
+    body { font-family: "Georgia", "Times New Roman", serif; color:#111; font-size:17px; line-height:1.6; padding:2rem; background:#fff }
+    h1,h2,h3 { font-weight:700; column-span: all; -webkit-column-span: all }
+    p, ul, ol { margin:0 0 0.9rem 0 }
+    pre { background:#f6f8fa; padding:1rem; overflow:auto; column-span: all; -webkit-column-span: all }
+    code { background:#f6f8fa; padding:0.15rem 0.3rem; border-radius:4px }
+    img { max-width:100%; height:auto; display:block; margin:0.6rem auto }
+    .figure { display:block; column-span: all; -webkit-column-span: all; break-inside: avoid; margin:1.2rem 0; text-align:center }
+    .figure img { margin:0 auto }
+    .caption, .figure figcaption { display:block; text-align:center; color:#444; font-style:italic; margin-top:0.25rem }
+    .meta { color:#666; font-size:0.95rem; column-span: all; -webkit-column-span: all }
+    blockquote { color:#555; border-left:4px solid #ddd; padding:0.5rem 1rem; column-span: all; -webkit-column-span: all }
 </style>
 </head>
 <body>
 <main>
-{html_body}
+'''
+
+tail = '''
 </main>
 <script>
     // small DOM fix: wrap adjacent image+italic-caption into <figure>
-    document.addEventListener('DOMContentLoaded', function(){{
+    document.addEventListener('DOMContentLoaded', function(){
         const imgs = Array.from(document.querySelectorAll('img'));
-        imgs.forEach(img => {{
+        imgs.forEach(img => {
             const next = img.nextElementSibling;
-            if(next && (next.tagName.toLowerCase()==='p' || next.tagName.toLowerCase()==='em') && /Figura|Figura:/.test(next.textContent)){{
+            if(next && (next.tagName.toLowerCase()==='p' || next.tagName.toLowerCase()==='em') && /Figura|Figura:/.test(next.textContent)){
                 const fig = document.createElement('figure');
                 fig.className = 'figure';
                 img.parentNode.insertBefore(fig, img);
                 fig.appendChild(img);
                 fig.appendChild(next);
-            }}
-        }});
-    }});
+            }
+        });
+    });
 </script>
 <footer style="margin-top:2rem;color:#666;font-size:0.9rem">Versão publicada gerada a partir de `article/medium_final.md` com imagens embutidas.</footer>
 </body>
 </html>
 '''
+
+template = head + html_body + tail
 
 OUT1.write_text(template, encoding='utf8')
 OUT2.write_text(template, encoding='utf8')
