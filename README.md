@@ -358,7 +358,5 @@ python3 -m http.server 8000
 # abra http://localhost:8000/article/Cifar100_published.html
 ```
 
-Se preferir, posso traduzir ou revisar outros arquivos do repositório.
----
 
 
